@@ -7,15 +7,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.base import ModelBase
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from fperms import enums
 from fperms.conf import settings
 from fperms.exceptions import ObjectNotPersisted, IncorrectContentType, IncorrectObject
-from fperms.managers import PermManager, RelatedPermManager
-from fperms import get_perm_model
+from fperms.managers import PermManager
 
 
 class PermMetaclass(ModelBase):
@@ -42,6 +39,7 @@ class BasePerm(models.Model, metaclass=PermMetaclass):
     codename = models.CharField(
         _('codename'),
         max_length=100,
+        db_index=True
     )
     name = models.CharField(
         _('name'),
@@ -60,6 +58,7 @@ class BasePerm(models.Model, metaclass=PermMetaclass):
         _('object pk'),
         null=True,
         blank=True,
+        db_index=True
     )
     content_object = GenericForeignKey()
     users = models.ManyToManyField(
@@ -156,7 +155,8 @@ class Group(models.Model):
         max_length=100,
         unique=True,
         null=True,
-        blank=True
+        blank=True,
+        db_index=True
     )
     name = models.CharField(
         _('name'),

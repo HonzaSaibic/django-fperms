@@ -70,14 +70,22 @@ class RelatedPermManager(models.Manager):
         return perm_pks
 
     def all_perms(self):
+        from fperms.base import Group
+
         if self.query_field_name == PERM_USER_SLUG:
-            q_list = [Q(users=self.instance), Q(fgroups__users=self.instance)]
-            for i in range(1, settings.PERM_GROUP_MAX_LEVEL + 1):
-                q_list.append(Q(**{'fgroups__{}__users'.format('__'.join(i * ['parents'])): self.instance}))
+            q_list = [
+                Q(users=self.instance),
+            ]
+            for i in range(0, settings.PERM_GROUP_MAX_LEVEL + 1):
+                q_list.append(
+                    Q(fgroups__in=Group.objects.filter(**{'__'.join(i * ['parents'] + ['users']): self.instance}))
+                )
         else:
             q_list = [Q(fgroups=self.instance)]
             for i in range(1, settings.PERM_GROUP_MAX_LEVEL + 1):
-                q_list.append(Q(**{'fgroups__{}'.format('__'.join(i * ['parents'])): self.instance}))
+                q_list.append(
+                    Q(fgroups__in=Group.objects.filter(**{'__'.join(i * ['parents']): self.instance}))
+                )
 
         return self.model.objects.filter(
             pk__in=self.model.objects.filter(reduce(operator.or_, q_list)).values('pk')
