@@ -49,8 +49,8 @@ setup(
     long_description=readme + '\n\n' + history,
     author='Petr Olah',
     author_email='djangoguru@gmail.com',
-    url='https://github.com/formulka/django-fperms',
-    download_url='https://github.com/formulka/django-fperms/archive/{}.tar.gz'.format(version),
+    url='https://github.com/skip-pay/django-fperms',
+    download_url='https://github.com/skip-pay/django-fperms/archive/{}.tar.gz'.format(version),
     packages=[
         'fperms',
     ],
