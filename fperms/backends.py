@@ -1,6 +1,5 @@
 from django.apps import apps
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 
 from fperms import get_perm_model
