@@ -4,4 +4,3 @@ from django.apps import AppConfig
 
 class FPermsConfig(AppConfig):
     name = 'fperms'
-

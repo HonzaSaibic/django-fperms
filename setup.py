@@ -43,7 +43,7 @@ readme = open('README.rst').read()
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
-    name='django-fperms',
+    name='skip-django-fperms',
     version=version,
     description="""Flexible Django permissions backend""",
     long_description=readme + '\n\n' + history,

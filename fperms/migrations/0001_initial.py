@@ -6,6 +6,7 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 
+
 class Migration(migrations.Migration):
 
     initial = True
@@ -21,12 +22,18 @@ class Migration(migrations.Migration):
             name='Perm',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type', models.CharField(choices=[('generic', 'generic'), ('model', 'model'), ('object', 'object'), ('field', 'field')], default='generic', max_length=10)),
+                ('type', models.CharField(choices=[
+                    ('generic', 'generic'),
+                    ('model', 'model'),
+                    ('object', 'object'),
+                    ('field', 'field')], default='generic', max_length=10)),
                 ('codename', models.CharField(max_length=100, verbose_name='codename')),
                 ('name', models.CharField(blank=True, max_length=255, null=True, verbose_name='name')),
                 ('object_id', models.SmallIntegerField(blank=True, null=True, verbose_name='object pk')),
                 ('field_name', models.CharField(blank=True, max_length=100, null=True, verbose_name='field name')),
-                ('content_type', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType', verbose_name='content type')),
+                ('content_type', models.ForeignKey(
+                    blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                    to='contenttypes.ContentType', verbose_name='content type')),
                 ('groups', models.ManyToManyField(related_name='perms', to='auth.Group', blank=True)),
                 ('users', models.ManyToManyField(related_name='perms', to=settings.AUTH_USER_MODEL, blank=True)),
             ],
