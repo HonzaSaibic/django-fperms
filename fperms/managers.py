@@ -70,7 +70,7 @@ class RelatedPermManager(models.Manager):
         return perm_pks
 
     def all_perms(self):
-        from fperms.base import Group
+        from fperms.models import Group
 
         if self.query_field_name == PERM_USER_SLUG:
             q_list = [

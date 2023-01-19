@@ -1,4 +1,4 @@
-from fperms.base import BasePerm
+from fperms.base import BasePerm, Group  # noqa: F401
 from fperms.managers import RelatedPermManager
 
 
