@@ -164,6 +164,12 @@ class Group(models.Model):
         null=False,
         blank=False,
     )
+    is_internal_group = models.BooleanField(
+        verbose_name=_('is an internal group'),
+        null=False,
+        blank=False,
+        default=True,
+    )
     fperms = models.ManyToManyField(
         settings.PERM_MODEL,
         verbose_name=_('permissions'),
